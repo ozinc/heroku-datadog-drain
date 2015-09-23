@@ -159,17 +159,18 @@ function loadAllowedAppsFromEnv () {
   let appNames = process.env.ALLOWED_APPS.split(',');
   let apps = appNames.map(function (name) {
     // Password
-    var passwordEnvName = name.toUpperCase() + '_PASSWORD';
+    var appName = name.toUpperCase().replace(/-/g, '_');
+    var passwordEnvName = appName + '_PASSWORD';
     var password = process.env[passwordEnvName];
     assert(password, 'Environment variable ' + passwordEnvName + ' required');
-
     // Tags
-    var tags = process.env[name.toUpperCase() + '_TAGS'];
+
+    var tags = process.env[appName + '_TAGS'];
     tags = tags === undefined ? [] : tags.split(',');
     tags.push('app:' + name);
 
     // Prefix
-    var prefix = process.env[name.toUpperCase() + '_PREFIX'] || '';
+    var prefix = process.env[appName + '_PREFIX'] || '';
     if (prefix && prefix.slice(-1) !== '.') {
       prefix += '.';
     }
