@@ -176,7 +176,7 @@ function loadAllowedAppsFromEnv () {
       prefix += '.';
     }
 
-    return [name.replace(/_/g, '-'), { password, tags, prefix }];
+    return [name, { password, tags, prefix }];
   });
 
   return _.zipObject(apps);
