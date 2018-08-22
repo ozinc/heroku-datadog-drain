@@ -17,7 +17,7 @@
   "author": "Hrafn Eiriksson <hrafn@oz.com>, Sveinn Fannar Kristjansson <sveinn@oz.com>",
   "license": "ISC",
   "dependencies": {
-    "babel": "6.23.0",
+    "babel-cli": "^6.26.0",
     "basic-auth": "2.0.0",
     "express": "4.16.3",
     "lodash": "4.17.10",
