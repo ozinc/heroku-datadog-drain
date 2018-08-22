@@ -13,7 +13,7 @@ let app = module.exports = express();
 let allowedApps = loadAllowedAppsFromEnv();
 
 if (process.env.DEBUG) {
-  console.log('Allowed apps', allowedApps);
+  console.log(`Allowed apps: ${Object.keys(allowedApps)}`);
   statsd.send = wrap(statsd.send.bind(statsd), console.log.bind(null, 'Intercepted: statsd.send(%s):'));
 }
 
@@ -162,7 +162,9 @@ function hasKeys (object, keys) {
 function loadAllowedAppsFromEnv () {
   assert(process.env.ALLOWED_APPS, 'Environment variable ALLOWED_APPS required');
   let appNames = process.env.ALLOWED_APPS.split(',');
-  let apps = appNames.map(function (name) {
+  let apps = {};
+
+  appNames.map(function (name) {
     // Password
     var passwordEnvName = name.toUpperCase() + '_PASSWORD';
     var password = process.env[passwordEnvName];
@@ -179,10 +181,14 @@ function loadAllowedAppsFromEnv () {
       prefix += '.';
     }
 
-    return [name.replace(/_/g, '-'), { password, tags, prefix }];
+    apps[name.replace(/_/g, '-')] = {
+      password,
+      tags,
+      prefix
+    }
   });
 
-  return _.zipObject(apps);
+  return apps;
 }
 
 /**
