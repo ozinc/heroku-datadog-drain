@@ -35,10 +35,11 @@ app.use(function authenticate (req, res, next) {
 
 app.post('/', function (req, res) {
   if(req.body !== undefined) {
-    req.body.pipe(through(line => processLine(line, req.prefix, req.defaultTags))).pipe(res.send('OK'));
-  } else {
-    res.send('OK');
+    // Doing this causes the H18 errors. This is still running when the response is sent below
+    req.body.pipe(through(line => processLine(line, req.prefix, req.defaultTags)));
   }
+  
+  res.send('OK');
 });
 
 let port = process.env.PORT || 3000;
