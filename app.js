@@ -115,6 +115,8 @@ function processLine (line, prefix, defaultTags) {
       console.log('No match for line');
     }
   }
+
+  return;
 }
 
 /**
@@ -177,7 +179,7 @@ function loadAllowedAppsFromEnv () {
     return [name, { password, tags, prefix }];
   });
 
-  return _.object(apps);
+  return _.zipObject(apps);
 }
 
 /**
@@ -205,4 +207,3 @@ function wrap (fn, wrapper) {
     fn.apply(null, args);
   };
 }
-
