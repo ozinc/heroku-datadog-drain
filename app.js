@@ -21,7 +21,7 @@ app.use(logfmt.bodyParserStream());
 app.use(function authenticate (req, res, next) {
   let auth = basicAuth(req) || {};
   let app = allowedApps[auth.name];
-  console.log('Flemann - auth.name', auth.name):
+  console.log('Flemann - auth.name', auth.name);
   console.log('Flemann - app', app);
   console.log('Flemann - allowedApps', allowedApps);
   if (app !== undefined && app.password === auth.pass) {
