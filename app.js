@@ -35,10 +35,10 @@ app.use(function authenticate (req, res, next) {
 
 app.post('/', function (req, res) {
   if(req.body !== undefined) {
-    req.body.pipe(through(line => processLine(line, req.prefix, req.defaultTags)));
+    req.body.pipe(through(line => processLine(line, req.prefix, req.defaultTags))).pipe(res.send('OK'));
+  } else {
+    res.send('OK');
   }
-
-  res.send('OK');
 });
 
 let port = process.env.PORT || 3000;
